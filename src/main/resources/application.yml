@@ -1,0 +1,30 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /devOps
+ 
+spring:
+  thymeleaf:
+    cache: false
+    check-template: true
+    check-template-location: true
+    servlet:
+      content-type: text/html; charset=utf-8
+    enabled: true
+    encoding: UTF-8
+  datasource:
+    url: jdbc:mysql://localhost:3306/devops?useSSL=false
+    username: root
+    password: admin
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+     
+logging:
+  level:
+    root: warn
+    com.nseit.devops: debug
+    org.springframework.web: info
+    org.springframework.security: info
