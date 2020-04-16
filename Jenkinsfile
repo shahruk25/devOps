@@ -3,7 +3,7 @@ pipeline {
 
    tools {
       // Install the Maven version configured as "M3" and add it to the path.
-      jdk "Java-1.8"
+      jdk "java-1.8.0-amazon-corretto"
       maven "M3"
    }
 
