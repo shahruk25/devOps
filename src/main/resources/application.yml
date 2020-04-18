@@ -13,7 +13,8 @@ spring:
     enabled: true
     encoding: UTF-8
   datasource:
-    url: jdbc:mysql://localhost:3306/devops?useSSL=false
+    # url: jdbc:mysql://localhost:3306/devops?useSSL=false
+    url: jdbc:mysql://mysqldb/devops
     username: root
     password: admin
   jpa:
