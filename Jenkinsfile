@@ -1,4 +1,11 @@
 pipeline {
+   // dockerhud credentials
+   environment {
+      registry = "t4techmonkey/devops-docker-repo-0.0.1"
+      registryCredential = 'dockerhub'
+      dockerImage = ''     
+   }
+
    agent any
 
    tools {
@@ -19,7 +26,7 @@ pipeline {
             // To run Maven on a Windows agent, use
             // bat "mvn -Dmaven.test.failure.ignore=true clean package"
          }
-
+         
         //  post {
         //     // If Maven was able to run the tests, even if some of the test
         //     // failed, record the test results and archive the jar file.
@@ -28,6 +35,30 @@ pipeline {
         //        archiveArtifacts 'target/*.jar'
         //     }
         //  }
+      }
+
+      stage('Building image') {
+         steps {
+            script {
+               docker.build registry + ":$BUILD_NUMBER"
+            }
+         }
+      }
+
+      stage('Deploy Image') {
+         steps{
+            script {
+               docker.withRegistry( '', registryCredential ) {
+                  dockerImage.push()
+               }
+            }
+         }
+      }
+
+      stage('Remove Unused docker image') {
+         steps{
+            sh "docker rmi $registry:$BUILD_NUMBER"
+         }
       }
    }
 }
